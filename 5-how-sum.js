@@ -1,3 +1,7 @@
+// Question:
+// Given a target sum, and list of numbers, determine any combination from list
+// of numbers that can reach target sum. You can return any set of combination.
+
 const howSum = (targetSum, numbers, memo = {}) => {
   if (targetSum in memo) return memo[targetSum]
   if (targetSum === 0) return []

@@ -1,3 +1,7 @@
+// Question:
+// Given grid with dimention m x n, m is width, n is height. Calculate how many
+// possible moves with start at top-left and end at bottom-right. You can only
+// moves down or right at a time.
 const gridTraveler = (m, n, memo = {}) => {
   let key = [m, n].join()
   if (key in memo) return memo[key]

@@ -1,3 +1,7 @@
+// Question:
+// Given a target sum, and list of numbers, determine if any combination from
+// list of numbers can reach exactly target sum.
+
 const canSum = (targetSum, numbers, memo = {}) => {
   if (targetSum in memo) return memo[targetSum]
   if (targetSum == 0) return true
