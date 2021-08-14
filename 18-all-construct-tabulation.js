@@ -1,20 +1,17 @@
-const allConstruct = (targetWord, wordBanks, memo = {}) => {
-  if (targetWord in memo) return memo[targetWord]
-  if (targetWord === '') return [[]]
+const allConstruct = (targetWord, wordBanks) => {
+  const table = Array(targetWord.length + 1).fill().map(() => [])
+  table[0] = [[]]
 
-  let allWays = []
-  for (const word of wordBanks) {
-    if (targetWord.indexOf(word) === 0) {
-      const nextTarget = targetWord.slice(word.length)
-      const nextResult = allConstruct(nextTarget, wordBanks, memo)
-
-      const entries = nextResult.map(i => [word, ...i])
-      allWays.push(...entries)
+  for (let i = 0; i <= targetWord.length; i++) {
+    for (const word of wordBanks) {
+      if (targetWord.slice(i, i + word.length) === word) {
+        const newCombination = table[i].map(sub => [...sub, word])
+        table[i + word.length].push(...newCombination)
+      }
     }
   }
 
-  memo[targetWord] = allWays
-  return allWays
+  return table[targetWord.length]
 }
 
 console.log(allConstruct('purple', ['purp', 'p', 'ur', 'le', 'purpl']))
@@ -50,7 +47,7 @@ console.log(allConstruct('enterapotentpot', ['a', 'p', 'ent', 'enter', 'ot', 'o'
 //   ]
 // ]
 
-console.log(allConstruct('eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeef', [
+console.log(allConstruct('eeeeeeeeeeeeeeeef', [
   'e',
   'ee',
   'eee',

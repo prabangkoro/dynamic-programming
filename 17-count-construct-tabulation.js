@@ -1,17 +1,17 @@
-const countConstruct = (targetWord, wordBanks, memo = {}) => {
-  if (targetWord in memo) return memo[targetWord]
-  if (targetWord === '') return 1
+const countConstruct = (targetWord, wordBanks) => {
+  const table = Array(targetWord.length + 1).fill(0)
+  table[0] = 1
 
-  let count = 0
-  for (const word of wordBanks) {
-    if (targetWord.indexOf(word) === 0) {
-      const nextTarget = targetWord.slice(word.length)
-      count += countConstruct(nextTarget, wordBanks, memo)
+  for (let i = 0; i <= targetWord.length; i++) {
+    if (table[i] === 0) continue
+    for (const word of wordBanks) {
+      if (targetWord.slice(i, i + word.length) === word) {
+        table[i + word.length] += table[i]
+      }
     }
   }
 
-  memo[targetWord] = count
-  return count
+  return table[targetWord.length]
 }
 
 console.log(countConstruct('purple', ['pur', 'ple', 'p', 'ur', 'le'])) // 4
